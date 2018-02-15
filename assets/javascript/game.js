@@ -16,37 +16,73 @@
 
 
 //variable for game
-var computerGuess = ["a","b","c","d","e","f","j","k","l", "m","n","p","q","r","s", "t", "u","v", "w", "x", "y", "z"];
-var userGuess;
-var totalGuesses = 9;
-var correctGuess = false;
+var letterArray = ["a","b","c","d","e","f","j","k","l", "m","n","p","q","r","s", "t", "u","v", "w", "x", "y", "z"];
+var userGuess= [];
 var computerAnswer;
-var wins = 0
-var guessesLeft;
 
+//counters
+var wins = 0;
+var losses = 0;
+var guessesLeft = 9;
 
+//empty array to store the guesses
+var answerArray = [];
 
+//shows information in console
+console.log("guessesLeft");
+console.log(guessesLeft);
 
-//executes computer random guess//
-//math.random returns a decimal <1
-var computerGuess = computerGuess[Math.floor(Math.random()*computerGuess.length)];
-//shows random answer
-console.log(computerGuess);
+//executes computer random guess and stores it into variable computerAnswer
+var computerAnswer = letterArray[Math.floor(Math.random()*letterArray.length)];
 
+//consoles computer answer
+console.log("computerAnswer");
+console.log(computerAnswer);
 
 //need to execute userGuess
-
-//if statement gets userGuess and compares it to (computerGuess) -- if this evaluates to true then {you are very wise}. If evaluates as false go to else.
-if (computerGuess === userGuess) {
-    wins + 1;
-    console.log (wins);
-};
+ function myFunction() 
+ {
+     document.getElementById("form").innerHTML=userGuess;
+ }
 
 
+//declare that onkeyup an event in the {} will occur
+document.onkeyup=function(event) 
+{
+    //saves entered key from user as userGuess
+    userGuess=event.key;
+    answerArray.push(userGuess);
+    //consoles answerArray - user guesses so far
+    console.log("answerArray");
+    console.log(answerArray);
+    //displays letters guessed so far in html
+    document.getElementById("gletters").innerHTML=answerArray;
 
-//if above statement evaluates as false, then else statement runs and user is not wise at all.
+    //writes guessesleft and subtracts one after event is executed
+    document.getElementById("gleft").innerHTML=guessesLeft--;
 
-else {
-    (totalGuesses-1);
-   console.log (totalGuesses);
-};
+    //if userGuess matches computerAnswer execute - writing the number of wins +1
+    if (userGuess == computerAnswer)
+        {
+           document.getElementById("ganar").innerHTML=wins++;
+           //displays wins
+           console.log("wins");
+           console.log(wins);
+        }
+    
+    //if gueess have been depleted then increase losses by 1 and display on html
+    else if (guessesLeft == 0)
+    {
+        document.getElementById("perder").innerHTML=losses++;
+        //displays losses
+        console.log("losses");
+        console.log(losses);
+        //resetsto 9 guesses left
+        guessesLeft = 9;
+    }
+}
+    
+
+
+
+
