@@ -18,19 +18,17 @@
 //variable for game
 var letterArray = ["a","b","c","d","e","f","j","k","l", "m","n","p","q","r","s", "t", "u","v", "w", "x", "y", "z"];
 var userGuess= [];
-var computerAnswer;
+var computerAnswer=[];
 
 //counters
-var wins = 0;
-var losses = 0;
-var guessesLeft = 9;
+var wins = 1;
+var losses = 1;
+var guessesSoFar = 9;
+
 
 //empty array to store the guesses
 var answerArray = [];
 
-//shows information in console
-console.log("guessesLeft");
-console.log(guessesLeft);
 
 //executes computer random guess and stores it into variable computerAnswer
 var computerAnswer = letterArray[Math.floor(Math.random()*letterArray.length)];
@@ -40,47 +38,81 @@ console.log("computerAnswer");
 console.log(computerAnswer);
 
 //need to execute userGuess
- function myFunction() 
- {
-     document.getElementById("form").innerHTML=userGuess;
- }
 
+//answer must be within letterArray
 
 //declare that onkeyup an event in the {} will occur
 document.onkeyup=function(event) 
 {
     //saves entered key from user as userGuess
-    userGuess=event.key;
+    var userGuess=event.key;
+
+    //pushes userGuess to answerArray
     answerArray.push(userGuess);
     //consoles answerArray - user guesses so far
     console.log("answerArray");
     console.log(answerArray);
-    //displays letters guessed so far in html
+    
+
+    //displays letters guessed in html
     document.getElementById("gletters").innerHTML=answerArray;
 
     //writes guessesleft and subtracts one after event is executed
-    document.getElementById("gleft").innerHTML=guessesLeft--;
+     document.getElementById("gleft").innerHTML=guessesSoFar--;
+    //shows information in console
+    console.log("guessesSoFar");
+    console.log(guessesSoFar);
+  
+  //if userGuess matches computerAnswer execute - writing the number of wins +1  
+    if(computerAnswer==userGuess)
+    {
+        document.getElementById("ganar").innerHTML=wins++;
 
-    //if userGuess matches computerAnswer execute - writing the number of wins +1
-    if (userGuess == computerAnswer)
-        {
-           document.getElementById("ganar").innerHTML=wins++;
-           //displays wins
-           console.log("wins");
-           console.log(wins);
-        }
+         //resetsto 9 guesses left
+         guessesSoFar = 9;
+         answerArray =[];
+ 
+         //executes computer random guess and stores it into variable computerAnswer
+         var computerAnswer = letterArray[Math.floor(Math.random()*letterArray.length)];
+ 
+         //consoles computer answer
+         console.log("computerAnswer");
+         console.log(computerAnswer);
+ 
+    }
     
-    //if gueess have been depleted then increase losses by 1 and display on html
-    else if (guessesLeft == 0)
+    
+    //if guesses so far are depleted to -1 in console AND userGuess doesn't equal computer Answer then losses will increase by 1
+    else if(guessesSoFar<=-1)
     {
         document.getElementById("perder").innerHTML=losses++;
+        
         //displays losses
         console.log("losses");
         console.log(losses);
         //resetsto 9 guesses left
-        guessesLeft = 9;
+        guessesSoFar = 9;
+        answerArray =[];
+
+        //executes computer random guess and stores it into variable computerAnswer
+        var computerAnswer = letterArray[Math.floor(Math.random()*letterArray.length)];
+
+        //consoles computer answer
+        console.log("computerAnswer");
+        console.log(computerAnswer);
+
     }
-}
+
+    
+   
+};      
+
+       
+        
+
+
+
+
     
 
 
